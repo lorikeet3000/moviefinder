@@ -1,4 +1,4 @@
-package com.example.moviefinder.presentation
+package com.example.moviefinder.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 

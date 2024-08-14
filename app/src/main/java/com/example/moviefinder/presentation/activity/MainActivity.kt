@@ -1,4 +1,4 @@
-package com.example.moviefinder.presentation
+package com.example.moviefinder.presentation.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
