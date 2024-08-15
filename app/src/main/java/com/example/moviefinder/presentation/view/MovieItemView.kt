@@ -1,5 +1,7 @@
 package com.example.moviefinder.presentation.view
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,13 +34,19 @@ fun MovieItemView(movie: Movie) {
             contentDescription = null,
             modifier = Modifier
                 .size(100.dp)
+                .clickable {
+                    onItemClicked(movie)
+                }
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column {
             Text(
                 text = movie.title,
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.clickable {
+                    onItemClicked(movie)
+                }
             )
             Text(
                 text = "${movie.rating}",
@@ -45,17 +54,25 @@ fun MovieItemView(movie: Movie) {
                 style = MaterialTheme.typography.labelMedium
             )
             Spacer(modifier = Modifier.height(4.dp))
-
-            val isExtended by remember { mutableStateOf(false) }
+            var isExpanded by remember { mutableStateOf(false) }
             Text(
                 text = movie.description,
-                modifier = Modifier.padding(all = 4.dp),
+                modifier = Modifier
+                    .padding(all = 4.dp)
+                    .clickable {
+                        isExpanded = !isExpanded
+                    },
                 style = MaterialTheme.typography.bodySmall,
-                maxLines = if (isExtended) Int.MAX_VALUE else 3,
+                maxLines = if (isExpanded) Int.MAX_VALUE else 3,
                 overflow = TextOverflow.Ellipsis
             )
         }
     }
+}
+
+private fun onItemClicked(item: Movie) {
+    Log.e("tag", "click ${item.title} ${item.id}")
+    // todo show details screen
 }
 
 @Preview(showBackground = true, name = "Light mode")
