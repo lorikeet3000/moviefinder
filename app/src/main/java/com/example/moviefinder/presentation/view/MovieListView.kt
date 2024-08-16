@@ -1,5 +1,7 @@
 package com.example.moviefinder.presentation.view
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,14 +13,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.moviefinder.MovieList
+import com.example.moviefinder.presentation.activity.DetailsActivity
 import com.example.moviefinder.presentation.model.Movie
 import com.example.moviefinder.presentation.theme.MovieFinderTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieListView(movies: List<Movie>) {
+    val context = LocalContext.current
     MovieFinderTheme {
         Scaffold(
             topBar = {
@@ -35,11 +40,19 @@ fun MovieListView(movies: List<Movie>) {
         ) { innerPadding ->
             LazyColumn(modifier = Modifier.padding(innerPadding)) {
                 items(movies) { movie ->
-                    MovieItemView(movie = movie)
+                    MovieItemView(movie = movie) {
+                        onItemClicked(context, it)
+                    }
                 }
             }
         }
     }
+}
+
+private fun onItemClicked(context: Context, item: Movie) {
+    val intent = Intent(context, DetailsActivity::class.java)
+    intent.putExtra(DetailsActivity.MOVIE_ID_KEY, item.id)
+    context.startActivity(intent)
 }
 
 @Preview

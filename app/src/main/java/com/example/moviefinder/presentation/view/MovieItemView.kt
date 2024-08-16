@@ -1,5 +1,6 @@
 package com.example.moviefinder.presentation.view
 
+import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,16 +19,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.moviefinder.MovieList
+import com.example.moviefinder.presentation.activity.DetailsActivity
+import com.example.moviefinder.presentation.activity.DetailsActivity.Companion.MOVIE_ID_KEY
 import com.example.moviefinder.presentation.model.Movie
 import com.example.moviefinder.presentation.theme.MovieFinderTheme
 
 @Composable
-fun MovieItemView(movie: Movie) {
+fun MovieItemView(movie: Movie, onItemClickAction: (Movie) -> Unit) {
     Row(modifier = Modifier.padding(all = 8.dp)) {
         AsyncImage(
             model = movie.imageUrl,
@@ -35,7 +39,7 @@ fun MovieItemView(movie: Movie) {
             modifier = Modifier
                 .size(100.dp)
                 .clickable {
-                    onItemClicked(movie)
+                    onItemClickAction(movie)
                 }
         )
         Spacer(modifier = Modifier.width(8.dp))
@@ -45,7 +49,7 @@ fun MovieItemView(movie: Movie) {
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.clickable {
-                    onItemClicked(movie)
+                    onItemClickAction(movie)
                 }
             )
             Text(
@@ -70,17 +74,13 @@ fun MovieItemView(movie: Movie) {
     }
 }
 
-private fun onItemClicked(item: Movie) {
-    Log.e("tag", "click ${item.title} ${item.id}")
-    // todo show details screen
-}
-
 @Preview(showBackground = true, name = "Light mode")
 @Composable
 fun MovieItemPreview() {
     MovieFinderTheme {
         Surface {
-            MovieItemView(MovieList[0])
+            MovieItemView(MovieList[0]) {
+            }
         }
     }
 }
