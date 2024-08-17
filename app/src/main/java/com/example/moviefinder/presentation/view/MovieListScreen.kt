@@ -22,7 +22,7 @@ import com.example.moviefinder.presentation.theme.MovieFinderTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieListView(movies: List<Movie>) {
+fun MovieListScreen(movies: List<Movie>) {
     val context = LocalContext.current
     MovieFinderTheme {
         Scaffold(
@@ -59,6 +59,6 @@ private fun onItemClicked(context: Context, item: Movie) {
 @Composable
 fun MovieListPreview() {
     MovieFinderTheme {
-        MovieListView(MovieList)
+        MovieListScreen(MovieList)
     }
 }

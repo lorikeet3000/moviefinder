@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.moviefinder.MovieList
 import com.example.moviefinder.presentation.theme.MovieFinderTheme
-import com.example.moviefinder.presentation.view.MovieListView
+import com.example.moviefinder.presentation.view.MovieListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieFinderTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    MovieListView(movies = MovieList)
+                    MovieListScreen(movies = MovieList)
                 }
             }
         }
