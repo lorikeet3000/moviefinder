@@ -14,12 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import com.example.moviefinder.presentation.viewmodel.DetailsUiState
-import com.example.moviefinder.presentation.viewmodel.DetailsViewItem
 import com.example.moviefinder.presentation.viewmodel.DetailsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(id: Long, viewModel: DetailsViewModel) {
+fun DetailsScreen(viewModel: DetailsViewModel) {
     val uiState by viewModel.detailsUiState.observeAsState()
     Scaffold(
         topBar = {
@@ -51,9 +50,4 @@ fun DetailsErrorView(innerPadding: PaddingValues) {
 @Composable
 fun DetailsLoadingView(innerPadding: PaddingValues) {
     CircularProgressIndicator(modifier = Modifier.padding(innerPadding))
-}
-
-@Composable
-fun DetailsSuccessView(innerPadding: PaddingValues, items: List<DetailsViewItem>) {
-    Text("items: ${items}", modifier = Modifier.padding(innerPadding))
 }

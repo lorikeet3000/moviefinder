@@ -27,7 +27,7 @@ class DetailsActivity : ComponentActivity() {
         setContent {
             MovieFinderTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    DetailsScreen(movieId, viewModel)
+                    DetailsScreen(viewModel)
                 }
             }
         }

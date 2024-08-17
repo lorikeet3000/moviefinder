@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviefinder.detailsScreenItems
+import com.example.moviefinder.presentation.model.Country
+import com.example.moviefinder.presentation.model.Genre
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,9 +19,11 @@ sealed class DetailsUiState {
 }
 
 sealed class DetailsViewItem {
-    data class Image(val imageUrl: String)
-    data class Title(val title: String)
-    data class Description(val description: String)
+    data class Image(val imageUrl: String) : DetailsViewItem()
+    data class Title(val title: String): DetailsViewItem()
+    data class Description(val description: String): DetailsViewItem()
+    data class Genres(val genres: List<Genre>): DetailsViewItem()
+    data class Countries(val countries: List<Country>) : DetailsViewItem()
 }
 
 class DetailsViewModel : ViewModel() {
@@ -33,11 +38,10 @@ class DetailsViewModel : ViewModel() {
             delay(2000)
 
             _detailsUiState.value = try {
-                DetailsUiState.Success(emptyList())
+                DetailsUiState.Success(detailsScreenItems)
             } catch (e: Exception) {
                 DetailsUiState.Error("Something went wrong")
             }
-
         }
     }
 }
