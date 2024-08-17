@@ -1,14 +1,12 @@
 package com.example.moviefinder.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviefinder.detailsScreenItems
+import com.example.moviefinder.getDetailsScreen
 import com.example.moviefinder.presentation.model.Country
 import com.example.moviefinder.presentation.model.Genre
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 sealed class DetailsUiState {
@@ -35,10 +33,10 @@ class DetailsViewModel : ViewModel() {
         viewModelScope.launch {
             _detailsUiState.value = DetailsUiState.Loading
 
-            delay(2000)
+//            delay(2000)
 
             _detailsUiState.value = try {
-                DetailsUiState.Success(detailsScreenItems)
+                DetailsUiState.Success(getDetailsScreen(id))
             } catch (e: Exception) {
                 DetailsUiState.Error("Something went wrong")
             }

@@ -29,17 +29,23 @@ val MovieList = listOf(
     )
 )
 
-val detailsScreenItems = listOf(
-    DetailsViewItem.Title("Мстители: Эра Альтрона"),
-    DetailsViewItem.Image("https://image.openmoviedb.com/kinopoisk-images/1900788/881abd28-a361-4a23-916a-3e2cc781ba83/x1000"),
-    DetailsViewItem.Description("Человечество на грани уничтожения. На этот раз людям угрожает Альтрон — искусственный интеллект, ранее созданный для того, чтобы защищать Землю от любых угроз. Однако, главной угрозой он посчитал человечество. Международная организация Щ.И.Т. распалась, и теперь мир не способен справиться с таким мощным врагом, потому люди вновь обращаются за помощью к Величайшим Героям Земли — Мстителям. Однако Альтрон слишком силен, и есть большая вероятность, что даже им не удастся остановить начало надвигающейся Эры Альтрона, где нет места для людей…"),
-    DetailsViewItem.Countries(countries = listOf(
-        Country("США")
-    )),
-    DetailsViewItem.Genres(genres = listOf(
-        Genre("фантастика"),
-        Genre("боевик"),
-        Genre("драма"),
-        Genre("приключения")
-    ))
-)
+fun getDetailsScreen(id: Long): List<DetailsViewItem> {
+    val movie = MovieList.firstOrNull {
+        it.id == id
+    }
+
+    return listOf(
+        DetailsViewItem.Title(movie?.title ?: "Мстители: Эра Альтрона"),
+        DetailsViewItem.Image(movie?.imageUrl ?: "https://image.openmoviedb.com/kinopoisk-images/1900788/881abd28-a361-4a23-916a-3e2cc781ba83/x1000"),
+        DetailsViewItem.Countries(countries = listOf(
+            Country("США")
+        )),
+        DetailsViewItem.Genres(genres = listOf(
+            Genre("фантастика"),
+            Genre("боевик"),
+            Genre("драма"),
+            Genre("приключения")
+        )),
+        DetailsViewItem.Description(movie?.description ?: "Человечество на грани уничтожения. На этот раз людям угрожает Альтрон — искусственный интеллект, ранее созданный для того, чтобы защищать Землю от любых угроз. Однако, главной угрозой он посчитал человечество. Международная организация Щ.И.Т. распалась, и теперь мир не способен справиться с таким мощным врагом, потому люди вновь обращаются за помощью к Величайшим Героям Земли — Мстителям. Однако Альтрон слишком силен, и есть большая вероятность, что даже им не удастся остановить начало надвигающейся Эры Альтрона, где нет места для людей…"),
+    )
+}
