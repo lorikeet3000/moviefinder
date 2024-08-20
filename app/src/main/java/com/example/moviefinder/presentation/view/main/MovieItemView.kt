@@ -1,7 +1,5 @@
-package com.example.moviefinder.presentation.view
+package com.example.moviefinder.presentation.view.main
 
-import android.content.Intent
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,14 +17,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.moviefinder.MovieList
-import com.example.moviefinder.presentation.activity.DetailsActivity
-import com.example.moviefinder.presentation.activity.DetailsActivity.Companion.MOVIE_ID_KEY
 import com.example.moviefinder.presentation.model.Movie
 import com.example.moviefinder.presentation.theme.MovieFinderTheme
 

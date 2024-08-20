@@ -1,4 +1,4 @@
-package com.example.moviefinder.presentation.view
+package com.example.moviefinder.presentation.view.main
 
 import android.content.Context
 import android.content.Intent
@@ -12,18 +12,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.moviefinder.MovieList
 import com.example.moviefinder.presentation.activity.DetailsActivity
 import com.example.moviefinder.presentation.model.Movie
 import com.example.moviefinder.presentation.theme.MovieFinderTheme
+import com.example.moviefinder.presentation.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieListScreen(movies: List<Movie>) {
+fun MovieListScreen(viewModel: MainViewModel) {
     val context = LocalContext.current
+    val moviesList = viewModel.movieList.observeAsState()
     MovieFinderTheme {
         Scaffold(
             topBar = {
@@ -39,7 +40,7 @@ fun MovieListScreen(movies: List<Movie>) {
             }
         ) { innerPadding ->
             LazyColumn(modifier = Modifier.padding(innerPadding)) {
-                items(movies) { movie ->
+                items(moviesList.value ?: emptyList()) { movie ->
                     MovieItemView(movie = movie) {
                         onItemClicked(context, it)
                     }
@@ -53,12 +54,4 @@ private fun onItemClicked(context: Context, item: Movie) {
     val intent = Intent(context, DetailsActivity::class.java)
     intent.putExtra(DetailsActivity.MOVIE_ID_KEY, item.id)
     context.startActivity(intent)
-}
-
-@Preview
-@Composable
-fun MovieListPreview() {
-    MovieFinderTheme {
-        MovieListScreen(MovieList)
-    }
 }
